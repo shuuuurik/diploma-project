@@ -13,19 +13,17 @@
       name="description"
       content="Web site created using create-react-app"
     />
-
+    <script src="./script.js" defer type="module"></script>
 </head>
 
 <body class="app">
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    
     <header class="header">
-        <input type="search" class="header__search" placeholder="Название трека">
+            <input class="header__search" type="search" placeholder="Название плейлиста" />
         <h2 class="header__user" >Александр</h2>
     </header>
 
     <aside class="accordion">
-        <a class="accordion__logo link" target="_blank" href="https://open.spotify.com/genre/section0JQ5DAnM3wGh0gz1MXnu3x">
+        <a class="accordion__logo link" target="_blank" href="https://open.spotify.com">
             <img src="%PUBLIC_URL%/logo.jpg" alt="Лого" >
             <h1 class="accordion__title">Spotify</h1>
         </a>
@@ -41,6 +39,25 @@
 
     <main class="content">
         <div class="playlists">
+
+            <section class="search-results">
+                <div class="section">
+                    <h2 class="section__title">Результаты поиска</h2>
+                    <section class="section__row found-playlists">
+
+                    </section>
+                </div>
+            </section>
+
+            <section class="favourite-playlists">
+                <div class="section">
+                    <h2 class="section__title">Мои плейлисты</h2>
+                    <section class="section__row my-playlists">
+
+                    </section>
+                </div>
+            </section>
+
             <section class="recently">
                 <div class="section">
                     <h2 class="section__title">Недавно прослушано</h2>
