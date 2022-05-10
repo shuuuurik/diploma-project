@@ -14,7 +14,7 @@ const myPlaylistSection = new PlaylistSection($mySection);
 const renderFoundSection = async (searchParam) => {
     return await Api.query(token, searchParam).then((playlists) => {
         foundPlaylistSection.clearHtml();
-        if (searchParam && searchParam.length > 1) {
+        if (searchParam && searchParam.length > 1 && (playlists === null || playlists === void 0 ? void 0 : playlists.length)) {
             playlists === null || playlists === void 0 ? void 0 : playlists.forEach((item) => {
                 foundPlaylistSection.add(item, false);
             });

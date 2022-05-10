@@ -19,7 +19,7 @@ const myPlaylistSection = new PlaylistSection($mySection);
 const renderFoundSection = async (searchParam?: string): Promise<void> => {
     return await Api.query(token, searchParam).then((playlists: void|IPlaylist[]) => {
         foundPlaylistSection.clearHtml();
-        if (searchParam && searchParam.length > 1) {
+        if (searchParam && searchParam.length > 1 && playlists?.length) {
             playlists?.forEach((item: IPlaylist): void => {
                 foundPlaylistSection.add(item, false);
             });
