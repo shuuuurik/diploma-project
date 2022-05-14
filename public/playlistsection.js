@@ -11,17 +11,11 @@ export class PlaylistSection {
     /**
      * Метод, добавляющий плейлист в секцию плейлистов
      * @param {IPlaylist} playlistItem - Интерфейс плейлиста, на основе которого создается плейлист
-     * @param {boolean} isMy - Флаговая переменная, обозначающая, сохранен ли данный плейлист в медиатеке пользователя (иначе он найден)
+     * @param {boolean} isSaved - Флаговая переменная, обозначающая, сохранен ли данный плейлист в медиатеке пользователя (иначе он найден)
      */
-    add(playlistItem, isMy) {
+    add(playlistItem, isSaved) {
         const myPlaylist = new Playlist(playlistItem);
-        let template;
-        if (isMy) {
-            template = Playlist.templateMy(myPlaylist);
-        }
-        else {
-            template = Playlist.templateFound(myPlaylist);
-        }
+        const template = isSaved ? Playlist.templateSaved(myPlaylist) : Playlist.templateFound(myPlaylist);
         this.container.insertAdjacentHTML('beforeend', template);
     }
     /**

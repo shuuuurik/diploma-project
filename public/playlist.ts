@@ -2,10 +2,10 @@ import { IPlaylist } from "./interfaces";
 
 export class Playlist{
 
-    name: string;
-    author: string;
-    image: string;
-    id: string;
+    private name: string;
+    private author: string;
+    private image: string;
+    private id: string;
 
     /**
      * Конструктор для создания плейлиста
@@ -50,7 +50,7 @@ export class Playlist{
      * @param {Playlist} playlist - Плейлист, на основе которого генерируется разметка
      * @returns {string} Строка с HTML-тегами
      */
-    static templateMy(playlist: Playlist): string {
+    static templateSaved(playlist: Playlist): string {
         return `
     <article class="section__column" data-id="${playlist.id}">
         <div class="item-about">

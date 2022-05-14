@@ -4,13 +4,13 @@ import { PlaylistSection } from './playlistsection.js'
 
 const $searchInput = document.querySelector('.header__search') as HTMLInputElement;
 const $foundSection = document.querySelector('.found-playlists') as HTMLElement;
-const $mySection = document.querySelector('.my-playlists') as HTMLElement;
+const $savedSection = document.querySelector('.my-playlists') as HTMLElement;
+const $playlists = document.querySelector('.playlists') as HTMLElement;
 
 const token: string = await Api.getToken();
-console.log(token);
 
 const foundPlaylistSection = new PlaylistSection($foundSection);
-const myPlaylistSection = new PlaylistSection($mySection);
+const savedPlaylistSection = new PlaylistSection($savedSection);
 
 /**
 * Метод, занимающийся поиском и HTML-разметкой секции найденных плейлистов
@@ -36,36 +36,35 @@ $searchInput.addEventListener('input', async (event) => {
 });
 
 /**
-* Метод, занимающийся получением плейлистов из медиатеки пользователя HTML-разметкой соответствующей секции 
+* Метод, занимающийся получением сохраненных плейлистов из медиатеки пользователя HTML-разметкой соответствующей секции 
 */
-const renderMySection = async (): Promise<void> => {
+const renderSavedSection = async (): Promise<void> => {
     return await Api.getMyPlaylists(token).then((playlists: void|IPlaylist[]) => {
-        myPlaylistSection.clearHtml();
+        savedPlaylistSection.clearHtml();
         playlists?.forEach((item: IPlaylist): void => {
-            myPlaylistSection.add(item, true);
+            savedPlaylistSection.add(item, true);
         });
     });
 }
 
-$foundSection.addEventListener('click', async (event) => {
+/**
+* Обработчик для кнопок "Добавить" и "Удалить" 
+*/
+$playlists.addEventListener('click', async (event) => {
     const target = event.target as HTMLElement;
     if (target.classList.contains('item-about__type_add')) {
         const playlistItem = target.closest('.section__column') as HTMLElement;
         const itemId = playlistItem.dataset.id as string;
         await Api.followPlaylist(token, itemId);
-        await renderMySection();
+        await renderSavedSection();
     }
-});
-
-$foundSection.addEventListener('click', async (event) => {
-    const target = event.target as HTMLElement;
     if (target.classList.contains('item-about__type_delete')) {
         const playlistItem = target.closest('.section__column') as HTMLElement;
         const itemId = playlistItem.dataset.id as string;
         await Api.unfollowPlaylist(token, itemId);
-        await renderMySection();
+        await renderSavedSection();
     }
 });
 
-await renderMySection();
+await renderSavedSection();
 await renderFoundSection();
