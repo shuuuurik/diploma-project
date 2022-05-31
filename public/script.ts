@@ -14,13 +14,13 @@ const savedPlaylistSection = new PlaylistSection($savedSection);
 
 /**
 * Метод, занимающийся поиском и HTML-разметкой секции найденных плейлистов
-* @param {string} searchParam? - Строка, на основе которой проводится поиск плейлистов
+* @param {string} searchParam - Строка, на основе которой проводится поиск плейлистов
 */
-const renderFoundSection = async (searchParam?: string): Promise<void> => {
+const renderFoundSection = async (searchParam? : string): Promise<void> => {
     return await Api.query(token, searchParam).then((playlists: void|IPlaylist[]) => {
         foundPlaylistSection.clearHtml();
         if (searchParam && searchParam.length > 1 && playlists?.length) {
-            playlists?.forEach((item: IPlaylist): void => {
+            playlists.forEach((item: IPlaylist): void => {
                 foundPlaylistSection.add(item, false);
             });
         } else {

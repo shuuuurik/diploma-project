@@ -30,36 +30,37 @@ export class Playlist{
     /**
      * Шаблон создания HTML-разметки для найденного плейлиста (статический метод)
      * @param {Playlist} playlist - Плейлист, на основе которого генерируется разметка
+     * @param {boolean} isSaved - Флаговая переменная, обозначающая, сохранен ли данный плейлист в медиатеке пользователя 
+     * (иначе он найден). Влияет на тип кнопки в нижней части панели - "Добавить" или "Удалить"
      * @returns {string} Строка с HTML-тегами
      */
-    static templateFound(playlist: Playlist): string {
+    static template(playlist: Playlist, isSaved: boolean): string {
+        const buttonTemplate = isSaved ? this.templateDeleteButton() : this.templateAddButton();
         return `
     <article class="section__column" data-id="${playlist.id}">
         <div class="item-about">
             <img src="${playlist.image}" alt="Плейлист" height="150" width="150">
             <div class="item-about__title">${playlist.name}</div>
             <div class="item-about__text">${playlist.author}</div>
-            <button type="button" class="item-about__action item-about__type_add">Добавить</button>
+            ${buttonTemplate}
         </div>
     </article>
     `;
     }
 
     /**
-     * Шаблон создания HTML-разметки для плейлиста из медиатеки пользователя (статический метод)
-     * @param {Playlist} playlist - Плейлист, на основе которого генерируется разметка
-     * @returns {string} Строка с HTML-тегами
+     * Шаблон создания кнопки "Добавить" (приватный статический метод)
+     * @returns {string} Строка с HTML-тегом <button> и соответствующим набором атрибутов
      */
-    static templateSaved(playlist: Playlist): string {
-        return `
-    <article class="section__column" data-id="${playlist.id}">
-        <div class="item-about">
-            <img src="${playlist.image}" alt="Плейлист" height="150" width="150">
-            <div class="item-about__title">${playlist.name}</div>
-            <div class="item-about__text">${playlist.author}</div>
-            <button type="button" class="item-about__action item-about__type_delete">Удалить</button>
-        </div>
-    </article>
-    `;
+    private static templateAddButton(): string {
+        return '<button type="button" class="item-about__action item-about__type_add">Добавить</button>';
+    }
+
+    /**
+     * Шаблон создания кнопки "Удалить" (приватный статический метод)
+     * @returns {string} Строка с HTML-тегом <button> и соответствующим набором атрибутов
+     */
+    private static templateDeleteButton(): string {
+        return '<button type="button" class="item-about__action item-about__type_delete">Удалить</button>';
     }
 }

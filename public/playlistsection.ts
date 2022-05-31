@@ -24,7 +24,7 @@ export class PlaylistSection implements IPlaylistSection{
      */
     add(playlistItem: IPlaylist, isSaved: boolean): void{
         const myPlaylist = new Playlist(playlistItem);
-        const template = isSaved ? Playlist.templateSaved(myPlaylist) : Playlist.templateFound(myPlaylist);
+        const template = Playlist.template(myPlaylist, isSaved);
         this.container.insertAdjacentHTML('beforeend', template);
     }
 
