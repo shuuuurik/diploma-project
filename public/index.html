@@ -1,278 +1,43 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/Spotify.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-
-    <title> Spotify </title>
-    <link rel="stylesheet" href="%PUBLIC_URL%/styles.css" />
-
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <script src="./script.js" defer type="module"></script>
-</head>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
 
-<body class="app">
-    <header class="header">
-            <input class="header__search" type="search" placeholder="Название плейлиста" />
-        <h2 class="header__user" >Александр</h2>
-    </header>
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-    <aside class="accordion">
-        <a class="accordion__logo link" target="_blank" href="https://open.spotify.com">
-            <img src="%PUBLIC_URL%/logo.jpg" alt="Лого" >
-            <h1 class="accordion__title">Spotify</h1>
-        </a>
-        <nav class="menu">
-            <ul class="menu__items">
-                <li> <a href="/" class="menu__item_active link">Главная</a></li>
-                <li> <a href="/" class="menu__item link">Поиск</a></li>
-                <li> <a href="/" class="menu__item link">Моя медиатека</a></li>
-                <li> <a href="/" class="menu__item link">Создать плейлист</a></li>
-            </ul>
-        </nav>
-    </aside>
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-    <main class="content">
-        <div class="playlists">
-
-            <section class="search-results">
-                <div class="section">
-                    <h2 class="section__title">Результаты поиска</h2>
-                    <section class="section__row found-playlists">
-
-                    </section>
-                </div>
-            </section>
-
-            <section class="favourite-playlists">
-                <div class="section">
-                    <h2 class="section__title">Мои плейлисты</h2>
-                    <section class="section__row my-playlists">
-
-                    </section>
-                </div>
-            </section>
-
-            <section class="recently">
-                <div class="section">
-                    <h2 class="section__title">Недавно прослушано</h2>
-                    <div class="section__row">
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/recently01.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Night Visions</div>
-                                <div class="item-about__text">Imagine Dragons</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/recently02.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Smoke + Mirrors</div>
-                                <div class="item-about__text">Imagine Dragons</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/recently03.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Evolve</div>
-                                <div class="item-about__text">Imagine Dragons</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/recently04.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Mercury - Act 1 </div>
-                                <div class="item-about__text">Imagine Dragons</div>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </section>
-
-            <section class="workout">
-                <div class="section">
-                    <h2 class="section__title">Тренировка</h2>
-                    <p class="section__subtitle">Плейлист для тех, кто не сдается.</p>
-                    <div class="section__row">
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/workout01.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Прокачка</div>
-                                <div class="item-about__text">Мощный хип-хоп для интенсивного...</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/workout02.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Motivation Mix</div>
-                                <div class="item-about__text">Uplifting and energetic music that helps you...</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/workout03.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Rock Your Body</div>
-                                <div class="item-about__text">Burn off all those beers from last night.</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/workout04.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Workout</div>
-                                <div class="item-about__text">Pop hits to keep your workout fresh.</div>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </section>
-            <section class="personal">
-                <div class="section">
-                    <h2 class="section__title">Персональные подборки</h2>
-                    <div class="section__row">
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/personal01.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">На повторе</div>
-                                <div class="item-about__text">Треки, которые тебе нравятся сейчас</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/personal02.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Ностальгический...</div>
-                                <div class="item-about__text">Мы создали ностальгический...</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/personal03.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">На повторе: флэш...</div>
-                                <div class="item-about__text">Треки, которые были твоими любимыми</div>
-                            </div>
-                        </div>
-                        <div class="section__column">
-                            <div class="item-about">
-                                <div class="item-about__icon">
-                                    <img src="%PUBLIC_URL%/main/personal04.jpg" alt="Альбом" height="150" width="150">
-                                </div>
-                                <div class="item-about__title">Любимые треки</div>
-                                <div class="item-about__text">25 треков</div>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </section>
-        </div>
-        <hr>
-        <div class="favourite">
-            <h2 class="favourite__title">Любимые треки</h2>
-            <div class="track">
-                <img src="%PUBLIC_URL%/main/track01.jpg" alt="Трек" class="track__icon" width="40" height="40">
-                <div class="track__info">
-                    <div class="track__name">Покинула чат</div>
-                    <div class="track__artist">Клава Кока</div>
-                </div>
-                <div class="track__time">2:53</div>
-            </div>
-            <div class="track">
-                <img src="%PUBLIC_URL%/main/track02.jpg" alt="Трек" class="track__icon" width="40" height="40">
-                <div class="track__info">
-                    <div class="track__name">Краш</div>
-                    <div class="track__artist">Клава Кока</div>
-                </div>
-                <div class="track__time">2:51</div>
-            </div>
-            <div class="track">
-                <img src="%PUBLIC_URL%/main/track03.jpg" alt="Трек" class="track__icon" width="40" height="40">
-                <div class="track__info">
-                    <div class="track__name">Believer</div>
-                    <div class="track__artist">Imagine Dragons</div>
-                </div>
-                <div class="track__time">3:24</div>
-            </div>
-            <div class="track">
-                <img src="%PUBLIC_URL%/main/track04.jpg" alt="Трек" class="track__icon" width="40" height="40">
-                <div class="track__info">
-                    <div class="track__name">Demons</div>
-                    <div class="track__artist">Imagine Dragons</div>
-                </div>
-                <div class="track__time">2:57</div>
-            </div>
-            <div class="track">
-                <img src="%PUBLIC_URL%/main/track05.jpg" alt="Трек" class="track__icon" width="40" height="40">
-                <div class="track__info">
-                    <div class="track__name">Зелёные волны</div>
-                    <div class="track__artist">Zivert</div>
-                </div>
-                <div class="track__time">3:43</div>
-            </div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="current-track">
-            <div class="track">
-                <img src="%PUBLIC_URL%/main/track01.jpg" alt="Трек" class="track__icon" height="56" width="56">
-                <div class="track__info">
-                    <a href="/" class="track__name link">Покинула чат</a>
-                    <a href="/" class="track__artist link">Клава Кока</a>
-                </div>
-            </div>
-            <div class="player-controls">
-                <button type="button" class="player-controls__button" aria-label="Перемешивать">
-                    <object type="image/svg+xml" class="object" data="%PUBLIC_URL%/footer/mix.svg"></object> 
-                </button>
-                <button type="button" class="player-controls__button" aria-label="Назад">
-                    <object type="image/svg+xml" class="object" data="%PUBLIC_URL%/footer/back.svg"></object>
-                </button>
-                <button type="button" class="player-controls__play" aria-label="Слушать">
-                    <object type="image/svg+xml" class="object" data="%PUBLIC_URL%/footer/play.svg"></object>
-                </button>
-                <button type="button" class="player-controls__button" aria-label="Далее">
-                    <object type="image/svg+xml" class="object" data="%PUBLIC_URL%/footer/forward.svg"></object>
-                </button>
-                <button type="button" class="player-controls__button" aria-label="Повторять">
-                    <object type="image/svg+xml" class="object" data="%PUBLIC_URL%/footer/repeat.svg"></object>
-                </button>
-            </div>
-            <div class="volume-bar" dir="ltr">
-                <button type="button" class="player-controls__button" aria-label="Выключить звук" aria-describedby="volume-icon" aria-expanded="false">
-                    <object type="image/svg+xml" class="object" data="%PUBLIC_URL%/footer/volume.svg"></object>
-                </button>
-                <div>
-                    <label class="hidden-visually">
-                        <input type="range" min="0" max="1" step="0.1" value="0.9">
-                    </label>
-                </div>
-            </div>
-        </div>    
-    </footer>
-</body>
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
 </html>

@@ -90,7 +90,7 @@
     background-color:rgba(0, 0, 0, 0.925);
     display: flex;
     justify-content: space-between;
-    padding: 0px 40px 80px 0px;
+    padding: 0px 100px 90px 0px;
     grid-area: 2 / 2 / 2 / 2;
 }
 
@@ -171,6 +171,7 @@
 .favourite{
     width: 400px;
     padding: 12px 10px 0px 20px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction:column;
 }
@@ -183,13 +184,26 @@
 
 .track{
     display: flex;
-    padding: 10px 0px;
+    padding: 10px;
+}
+
+.track:hover{
+    background:rgba(163, 157, 157, 0.212);
 }
 
 
 .track__name{
     color: #FFF;
     font-size: 16px;
+}
+
+.track__icon{
+    height: 40px;
+    width: 40px;
+}
+
+.track__icon:hover{
+    cursor: pointer;
 }
 
 .track__info{
@@ -210,6 +224,30 @@
     align-self: center;
 }
 
+.search-tracks{
+    width: 400px;
+    padding: 12px 10px 0px 20px;
+    display: flex;
+    flex-direction:column;
+}
+
+.search-tracks__title{
+    color: #FFF;
+    font-size: 24px;
+    padding-bottom: 20px;
+}
+
+.search-tracks__search{
+    width: 100%;
+    min-width: 150px;
+    max-width: 370px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
 .footer{
     background-color: #181818;
     border-top: 1px solid #282828;
@@ -217,12 +255,20 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    display:flex;
+    justify-content: space-between;
+    padding: 5px 16px;
 }
 
 .current-track{
-    display:flex;
-    justify-content: space-between;
-    padding: 0px 16px;
+    display: flex;
+    padding: 10px 0px;
+    width: 400px;
+}
+
+.current-track__icon{
+    height: 56px;
+    width: 56px;
 }
 
 .player-controls{
@@ -256,6 +302,3 @@
     display: flex;
     align-items: center;
 }
-
-
-

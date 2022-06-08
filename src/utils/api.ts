@@ -1,4 +1,4 @@
-import { IPlaylist } from './interfaces';
+import { IPlaylist, ITrack } from '../interfaces';
 
 class Api {
     private static clientId = '44a8232cc5a34b68a8bfb31f0ae3200a';
@@ -29,22 +29,27 @@ class Api {
     }
 
     /**
-     * Статический метод, посылающий запрос на поиск плейлистов по строке
+     * Статический метод, посылающий запрос на поиск плейлистов или треков по строке
      * @param {string} token - Токен, необходимый для запроса
      * @param {string} searchParam - Строка, на основе которой проводится поиск плейлистов
-     * @returns {Promise<void|IPlaylist[]>} Промис с массивом плейлистов
+     * @param {string} type - Тип поиска: трек или плейлист
+     * @returns {Promise<any>} Промис с массивом плейлистов/треков/пустой промис 
+     * (можно было написать Promise<void|IPlaylist[]|ITrack[]> но у меня получилось привести типы только с any)
      */
-    static async query(token: string, searchParam?: string): Promise<void|IPlaylist[]>{
+    static async query(token: string, searchParam: string, type: string): Promise<any>{
         try {
             const limit = 4;
-            const answer = await fetch(`https://api.spotify.com/v1/search?q=name:${searchParam}&type=playlist&limit=${limit}`, {
+            const answer = await fetch(`https://api.spotify.com/v1/search?q=name:${searchParam}&type=${type}&limit=${limit}`, {
                 method: 'GET',
                 headers: { 
                     'Content-Type': 'application/json',
                     'Authorization' : 'Bearer ' + token
                 }
             });
-            return this.extractingPlaylists(answer);
+            if (type === 'playlist')
+                return this.extractingPlaylists(answer, false);
+            else
+                return this.extractingTracks(answer);
         } catch(err: any) { 
             alert(err.message + " Пожалуйста, перезагрузите страницу");
         }
@@ -62,7 +67,7 @@ class Api {
                 method: 'GET',
                 headers: { 'Authorization' : 'Bearer ' + token}
             });
-            return this.extractingPlaylists(answer);
+            return this.extractingPlaylists(answer, true);
         } catch(err: any) { 
             alert(err.message + " Пожалуйста, перезагрузите страницу");
         }
@@ -71,18 +76,42 @@ class Api {
     /**
      * Приватный статический метод, обрабатывающий полученный от сервера ответ 
      * (выбрасывает ошибку или извлекает данные плейлистов)
-     * @param {Response} answer - ответ, полученный от сервера
+     * @param {Response} answer - Ответ, полученный от сервера
+     * @param {boolean} isSaved - Флаговая переменная, обозначающая, на какой запрос сервер прислал ответ - поиск или
+     * получение сохраненных пользователем плейлистов
      * @returns {Promise<IPlaylist[]>} Промис с массивом плейлистов
      */
-    private static async extractingPlaylists(answer: Response): Promise<IPlaylist[]>{
+    private static async extractingPlaylists(answer: Response, isSaved: boolean): Promise<IPlaylist[]>{
         const data = await answer.json();
         if (answer.status !== 200){
             throw new Error(data.error.message);
         } else {
-            const playlists = data.playlists.items;
+            const playlists = isSaved ? data.items : data.playlists.items;
             const newItems: IPlaylist[] = [];
             playlists?.forEach((item: any): void => {
                 const data: IPlaylist = { ...item, image: item.images[0].url, author: item.owner.display_name};
+                newItems.push(data);
+            });
+            return newItems;
+        }     
+    }
+
+    /**
+     * Приватный статический метод, обрабатывающий полученный от сервера ответ 
+     * (выбрасывает ошибку или извлекает данные треков)
+     * @param {Response} answer - Ответ, полученный от сервера
+     * @returns {Promise<ITrack[]>} Промис с массивом треков
+     */
+     private static async extractingTracks(answer: Response): Promise<ITrack[]>{
+        const data = await answer.json();
+        if (answer.status !== 200){
+            throw new Error(data.error.message);
+        } else {
+            const tracks = data.tracks.items;
+            const newItems: ITrack[] = [];
+            tracks?.forEach((item: any): void => {
+                const data: ITrack = { ...item, image: item.album.images[0].url, artist: item.artists[0].name};
+                //debugger;
                 newItems.push(data);
             });
             return newItems;
