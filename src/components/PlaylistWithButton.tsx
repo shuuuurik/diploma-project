@@ -17,15 +17,18 @@ export default function PlaylistWithButton(props: {
     token: string,
     onSavedPlaylistsCallback: (value: IPlaylist[]) => void
 }) {
-    const name: string = 
-    props.playlist.name.length <= 17 
-        ? props.playlist.name 
-        : props.playlist.name.substr(0, 14) + " ...";
 
-    const author: string = 
-    props.playlist.author.length <= 14 
-        ? "Автор: " + props.playlist.author 
-        : "Автор: " + props.playlist.author.substr(0, 11) + " ...";
+    /**
+     * Метод, обрезающий входную строку, если ее длина превышает заданное значение 
+     * (выбрасывает ошибку или извлекает данные треков)
+     * @param {string} text - Входная строка
+     * @param {number} size - Максимальная длина
+     * @returns {string} Отформатированная строка
+     */
+    const resize = (text: string, size: number): string => 
+        text.length <= size 
+            ? text 
+            : text.substr(0, size-3) + " ...";
         
     const buttonTemplate = props.isSaved 
         ? (
@@ -64,10 +67,10 @@ export default function PlaylistWithButton(props: {
                     width="150" />
                 <div 
                     className="item-about__title"
-                >{name}</div>
+                >{resize(props.playlist.name, 17)}</div>
                 <div 
                     className="item-about__text"
-                >{author}</div>
+                >{resize("Автор: "+props.playlist.name, 21)}</div>
                 {buttonTemplate}
             </div>
         </article>

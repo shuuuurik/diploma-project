@@ -12,17 +12,19 @@ export default function Track(props: {
     track: ITrack;
     isCurrent: boolean;
 }){
-    const name: string = 
-    props.track.name.length <= 30 
-        ? props.track.name 
-        : props.track.name.substr(0, 30) + " ...";
-
-    const artist: string = 
-    props.track.artist.length <= 30 
-        ? props.track.artist 
-        : props.track.artist.substr(0, 30) + " ...";
-
     const {changeTrack} = useContext(CurrentTrackContext);
+
+    /**
+     * Метод, обрезающий входную строку, если ее длина превышает заданное значение 
+     * (выбрасывает ошибку или извлекает данные треков)
+     * @param {string} text - Входная строка
+     * @param {number} size - Максимальная длина
+     * @returns {string} Отформатированная строка
+     */
+    const resize = (text: string, size: number): string => 
+        text.length <= size 
+            ? text 
+            : text.substr(0, size) + " ...";
 
     return (
         <div className={props.isCurrent ? "current-track" : "track"}>
@@ -33,8 +35,8 @@ export default function Track(props: {
                 onClick={() => changeTrack(props.track)}
             />
             <div className="track__info">
-                <div className="track__name">{name}</div>
-                <div className="track__artist">{artist}</div>
+                <div className="track__name">{resize(props.track.name, 30)}</div>
+                <div className="track__artist">{resize(props.track.artist, 30)}</div>
             </div>
             {!props.isCurrent && props.track.time &&
                 <div className="track__time">{props.track.time}</div>

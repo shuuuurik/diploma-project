@@ -111,7 +111,6 @@ class Api {
             const newItems: ITrack[] = [];
             tracks?.forEach((item: any): void => {
                 const data: ITrack = { ...item, image: item.album.images[0].url, artist: item.artists[0].name};
-                //debugger;
                 newItems.push(data);
             });
             return newItems;

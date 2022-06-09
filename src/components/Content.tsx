@@ -46,30 +46,142 @@ export default function Content(props: {
             isCancelled = true;
         };
     }, [token]);
-
+    
     useEffect(() => {
-        if (props.searchValue.length > 1) {
-            Api.query(token, props.searchValue, "playlist").then((playlists: void|IPlaylist[]) => {
-                if (playlists)
-                    setFoundPlaylists(playlists);
-            })
-        }
-        else {
-            setFoundPlaylists([]);
+        const timerId = setTimeout(() => {
+            if (props.searchValue.length) {
+                Api.query(token, props.searchValue, "playlist").then((playlists: void|IPlaylist[]) => {
+                    if (playlists)
+                        setFoundPlaylists(playlists);
+                })
+            }
+            else {
+                setFoundPlaylists([]);
+            }
+        }, 300);
+        return () => {
+            clearTimeout(timerId);
         }
     }, [props.searchValue, token]);
 
     useEffect(() => {
-        if (inputValue.length > 1) {
-            Api.query(token, inputValue, "track").then((tracks: void|ITrack[]) => {
-                if (tracks)
-                    setFoundTracks(tracks);
-            })
-        }
-        else {
-            setFoundTracks([]);
+        const timerId = setTimeout(() => {
+            if (inputValue.length) {
+                Api.query(token, inputValue, "track").then((tracks: void|ITrack[]) => {
+                    if (tracks)
+                        setFoundTracks(tracks);
+                })
+            }
+            else {
+                setFoundTracks([]);
+            }
+        }, 300);
+        return () => {
+            clearTimeout(timerId);
         }
     }, [inputValue, token]);
+
+    const recentlyPlaylists: IPlaylist[] = [
+        {   image:"main/recently01.jpg",
+            name:"Night Visions",
+            author: "Imagine Dragons",
+            id: "01"},
+        {
+            image:"main/recently02.jpg",
+            name:"Smoke + Mirrors",
+            author: "Imagine Dragons",
+            id: "02"},
+        {
+            image:"main/recently03.jpg",
+            name:"Evolve",
+            author: "Imagine Dragons",
+            id: "03"},
+        {
+            image:"main/recently04.jpg",
+            name:"Mercury - Act 1",
+            author: "Imagine Dragons",
+            id: "04"
+        }
+    ];
+
+    const workoutPlaylists: IPlaylist[] = [
+        {   
+            image:"main/workout01.jpg",
+            name:"Прокачка",
+            author: "Мощный хип-хоп для интенсивного...",
+            id: "11"},
+        {
+            image:"main/workout02.jpg",
+            name:"Motivation Mix",
+            author: "Uplifting and energetic music that helps you...",
+            id: "12"},
+        {
+            image:"main/workout03.jpg",
+            name:"Rock Your Body",
+            author: "Burn off all those beers from last night",
+            id: "13"},
+        {
+            image:"main/workout04.jpg",
+            name:"Workout",
+            author: "Pop hits to keep your workout fresh",
+            id: "14"}
+    ];
+
+    const personalPlaylists: IPlaylist[] = [
+        {   
+            image:"main/personal01.jpg",
+            name:"На повторе",
+            author: "Треки, которые тебе нравятся сейчас",
+            id: "21"},
+        {
+            image:"main/personal02.jpg",
+            name:"Ностальгический...",
+            author: "Мы создали ностальгический...",
+            id: "22"},
+        {
+            image:"main/personal03.jpg",
+            name:"На повторе: флэш...",
+            author: "Треки, которые были твоими любимыми",
+            id: "23"},
+        {
+            image:"main/personal04.jpg",
+            name:"Любимые треки",
+            author: "25 треков",
+            id: "24"}
+    ];
+
+    const favouriteTracks: ITrack[] = [
+        {   
+            image: "main/track01.jpg",
+            name: "Покинула чат",
+            artist: "Клава Кока",
+            time: "2:53",
+            id: "101"},
+        {
+            image: "main/track02.jpg",
+            name: "Краш",
+            artist: "Клава Кока",
+            time: "2:51",
+            id: "102"},
+        {
+            image: "main/track03.jpg",
+            name: "Believer",
+            artist: "Imagine Dragons",
+            time: "3:24",
+            id: "103"},
+        {
+            image: "main/track04.jpg",
+            name: "Demons",
+            artist: "Imagine Dragons",
+            time: "2:57",
+            id: "104"},
+        {
+            image: "main/track05.jpg",
+            name: "Зелёные волны",
+            artist: "Zivert",
+            time: "3:43",
+            id: "105"},
+    ];
 
     return (
         <main className="content">
@@ -113,88 +225,25 @@ export default function Content(props: {
                 <PlaylistsSection sectionClassName="recently" sectionTitle="Недавно прослушано"
                     children={
                         <>
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/recently01.jpg",
-                                name:"Night Visions",
-                                author: "Imagine Dragons",
-                                id: "01"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/recently02.jpg",
-                                name:"Smoke + Mirrors",
-                                author: "Imagine Dragons",
-                                id: "02"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/recently03.jpg",
-                                name:"Evolve",
-                                author: "Imagine Dragons",
-                                id: "03"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/recently04.jpg",
-                                name:"Mercury - Act 1",
-                                author: "Imagine Dragons",
-                                id: "04"}}
-                            />
+                            {recentlyPlaylists.map((playlist: IPlaylist) => 
+                                <PlaylistWithoutButton playlist={playlist} key={playlist.id} />
+                            )}
                         </>}
                 />
                 <PlaylistsSection sectionClassName="workout" sectionTitle="Тренировка"
                     children={
                         <>
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/workout01.jpg",
-                                name:"Прокачка",
-                                author: "Мощный хип-хоп для интенсивного...",
-                                id: "11"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/workout02.jpg",
-                                name:"Motivation Mix",
-                                author: "Uplifting and energetic music that helps you...",
-                                id: "12"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/workout03.jpg",
-                                name:"Rock Your Body",
-                                author: "Burn off all those beers from last night",
-                                id: "13"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/workout04.jpg",
-                                name:"Workout",
-                                author: "Pop hits to keep your workout fresh",
-                                id: "14"}}
-                            />
+                            {workoutPlaylists.map((playlist: IPlaylist) => 
+                                <PlaylistWithoutButton playlist={playlist} key={playlist.id}/>
+                            )}    
                         </>}
                 />
                 <PlaylistsSection sectionClassName="personal" sectionTitle="Персональные подборки"
                     children={
                         <>
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/personal01.jpg",
-                                name:"На повторе",
-                                author: "Треки, которые тебе нравятся сейчас",
-                                id: "21"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/personal02.jpg",
-                                name:"Ностальгический...",
-                                author: "Мы создали ностальгический...",
-                                id: "22"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/personal03.jpg",
-                                name:"На повторе: флэш...",
-                                author: "Треки, которые были твоими любимыми",
-                                id: "23"}}
-                            />
-                            <PlaylistWithoutButton playlist={{
-                                image:"main/personal04.jpg",
-                                name:"Любимые треки",
-                                author: "25 треков",
-                                id: "24"}}
-                            />
+                            {personalPlaylists.map((playlist: IPlaylist) => 
+                                <PlaylistWithoutButton playlist={playlist} key={playlist.id}/>
+                            )}
                         </>}
                 />
             </div>
@@ -202,36 +251,9 @@ export default function Content(props: {
             <div className="tracks">
                 <section className="favourite">
                     <h2 className="favourite__title">Любимые треки</h2>
-                        <Track track={{
-                            image: "main/track01.jpg",
-                            name: "Покинула чат",
-                            artist: "Клава Кока",
-                            time: "2:53"
-                        }} isCurrent={false}/>
-                        <Track track={{
-                            image: "main/track02.jpg",
-                            name: "Краш",
-                            artist: "Клава Кока",
-                            time: "2:51"
-                        }} isCurrent={false}/>
-                        <Track track={{
-                            image: "main/track03.jpg",
-                            name: "Believer",
-                            artist: "Imagine Dragons",
-                            time: "3:24"
-                        }} isCurrent={false}/>
-                        <Track track={{
-                            image: "main/track04.jpg",
-                            name: "Demons",
-                            artist: "Imagine Dragons",
-                            time: "2:57"
-                        }} isCurrent={false}/>
-                        <Track track={{
-                            image: "main/track05.jpg",
-                            name: "Зелёные волны",
-                            artist: "Zivert",
-                            time: "3:43"
-                        }} isCurrent={false}/>
+                    {favouriteTracks.map((track: ITrack) => 
+                        <Track track={track} isCurrent={false} key={track.id}/>
+                    )}
                 </section>
                     <section className="search-tracks">
                     <h2 className="search-tracks__title">Поиск треков</h2>

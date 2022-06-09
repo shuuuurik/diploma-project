@@ -115,12 +115,12 @@
 
 .section__row{
     display: flex;
-    margin: 25px 10px 20px 10px;
+    margin: 25px 10px 10px 10px;
     flex-flow: row wrap;
 }
 
 .section__column{
-    margin: 0px 10px 0px 0px;
+    margin: 0px 10px 15px 0px;
     padding: 15px;
     width: 180px;
     height: 280px;
