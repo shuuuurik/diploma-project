@@ -20,7 +20,6 @@ export default function PlaylistWithButton(props: {
 
     /**
      * Метод, обрезающий входную строку, если ее длина превышает заданное значение 
-     * (выбрасывает ошибку или извлекает данные треков)
      * @param {string} text - Входная строка
      * @param {number} size - Максимальная длина
      * @returns {string} Отформатированная строка

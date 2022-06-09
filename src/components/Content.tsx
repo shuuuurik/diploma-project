@@ -46,7 +46,7 @@ export default function Content(props: {
             isCancelled = true;
         };
     }, [token]);
-    
+
     useEffect(() => {
         const timerId = setTimeout(() => {
             if (props.searchValue.length) {
