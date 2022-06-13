@@ -1,5 +1,6 @@
 import { IPlaylist } from "../interfaces";
 import Api from '../utils/api';
+import { resize } from "../utils/functions";
 
 /**
  * Компонент для отображения плейлиста с кнопкой "Добавить" или "Удалить"
@@ -17,18 +18,6 @@ export default function PlaylistWithButton(props: {
     token: string,
     onSavedPlaylistsCallback: (value: IPlaylist[]) => void
 }) {
-
-    /**
-     * Метод, обрезающий входную строку, если ее длина превышает заданное значение 
-     * @param {string} text - Входная строка
-     * @param {number} size - Максимальная длина
-     * @returns {string} Отформатированная строка
-     */
-    const resize = (text: string, size: number): string => 
-        text.length <= size 
-            ? text 
-            : text.substr(0, size-3) + " ...";
-        
     const buttonTemplate = props.isSaved 
         ? (
             <button 
@@ -66,10 +55,10 @@ export default function PlaylistWithButton(props: {
                     width="150" />
                 <div 
                     className="item-about__title"
-                >{resize(props.playlist.name, 17)}</div>
+                >{resize(props.playlist.name, 16)}</div>
                 <div 
                     className="item-about__text"
-                >{resize("Автор: "+props.playlist.name, 21)}</div>
+                >{resize("Автор: "+props.playlist.author, 18)}</div>
                 {buttonTemplate}
             </div>
         </article>

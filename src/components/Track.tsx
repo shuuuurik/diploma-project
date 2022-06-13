@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CurrentTrackContext } from "../currentTrackContext";
 import { ITrack } from "../interfaces";
+import { resize } from "../utils/functions";
 
 /**
  * Компонент для отображения трека
@@ -13,18 +14,6 @@ export default function Track(props: {
     isCurrent: boolean;
 }){
     const {changeTrack} = useContext(CurrentTrackContext);
-
-    /**
-     * Метод, обрезающий входную строку, если ее длина превышает заданное значение 
-     * @param {string} text - Входная строка
-     * @param {number} size - Максимальная длина
-     * @returns {string} Отформатированная строка
-     */
-    const resize = (text: string, size: number): string => 
-        text.length <= size 
-            ? text 
-            : text.substr(0, size) + " ...";
-
     return (
         <div className={props.isCurrent ? "current-track" : "track"}>
             <img 
@@ -40,7 +29,6 @@ export default function Track(props: {
             {!props.isCurrent && props.track.time &&
                 <div className="track__time">{props.track.time}</div>
             }
-            
         </div>
     );
 }

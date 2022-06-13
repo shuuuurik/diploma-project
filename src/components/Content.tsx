@@ -49,6 +49,9 @@ export default function Content(props: {
 
     useEffect(() => {
         const timerId = setTimeout(() => {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
             if (props.searchValue.length) {
                 Api.query(token, props.searchValue, "playlist").then((playlists: void|IPlaylist[]) => {
                     if (playlists)
@@ -66,6 +69,9 @@ export default function Content(props: {
 
     useEffect(() => {
         const timerId = setTimeout(() => {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
             if (inputValue.length) {
                 Api.query(token, inputValue, "track").then((tracks: void|ITrack[]) => {
                     if (tracks)
